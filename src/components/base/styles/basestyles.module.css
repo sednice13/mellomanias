@@ -1,0 +1,23 @@
+.headerFooter {
+    background-color: #393a3b;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+  
+  .header {
+    top: 0;
+  }
+  
+  .footer {
+    bottom: 0;
+  }
+  h2 {
+    color: white !important; 
+    
+  }
