@@ -5,7 +5,7 @@ const Home = () => {
 
     return (
           <div>
-            <h1> Home page with  TikTok Api</h1>
+            <h1> Home page with  TikTok Api .</h1>
           </div>
     )
 
