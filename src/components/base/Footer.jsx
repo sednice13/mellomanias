@@ -6,7 +6,9 @@ import basestyles from './styles/basestyles.module.css'
 const Footer = () => {
     return (
         <Container fluid className={`${basestyles.headerFooter} ${basestyles.footer}`}>
-            <h2>Footer</h2>
+            <a href="/terms"> Terms of conditions</a>
+            <a href="/private"> Private policy</a>
+
         </Container>
     );
 };
