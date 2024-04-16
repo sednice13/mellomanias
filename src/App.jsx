@@ -7,6 +7,7 @@ import './App.css';
 import Terms from './components/policy/Terms';
 import Private from './components/policy/Private';
 import Home from './components/sites/Home';
+import Register from './components/account/Register';
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
           <Container style={{ paddingTop: '60px', paddingBottom: '60px', height: '100%' }}>
             <Router>
             <Routes>
+            <Route path='/create-account' exact element={<Register />} /> 
             <Route path='/' exact element={<Home />} />   
             <Route path='/terms' exact element={<Terms />} />
             <Route path='/private' exact element={<Private />} />
