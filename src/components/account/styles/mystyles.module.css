@@ -1,12 +1,12 @@
 .signinform {
-    height: 250px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: rgb(33, 33, 33);
     border-radius: 20px;
-    width: 250px;
+    width: 300px;
    
   }
 
@@ -66,20 +66,30 @@
 
   .fulldivcontent {
      
-    height: 100%;
-    width: 100%;
-    
+    height: 500px;
+    width: 600px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: rgb(38, 37, 37);
+    padding: 10px;
+    
 }
 .accountsection {
 
   height: 100%;
-  width: 100%;
+  width: 100% !important;
+  display: flex;
+    align-items: center;
+    justify-content: center;
+  background-color: rgb(50, 52, 52);
 }
 a {
   text-decoration:none;
+}
+img {
+  width: 250px;
 }
 .statusdiv {
   position: absolute;

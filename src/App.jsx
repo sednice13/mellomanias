@@ -16,8 +16,8 @@ class App extends Component {
       <div className="app-container">
         <Header />
         <div className="content-wrapper">
-          <Container style={{ paddingTop: '60px', paddingBottom: '60px', height: '100%' }}>
-            <Router>
+          <Container fluid style={{ paddingTop: '0px', paddingBottom: '0px', height: '100%', width: '100%', paddingRight: "0px", paddingLeft: "0px"  }}>
+            <Router >
             <Routes>
             <Route path='/create-account' exact element={<Register />} /> 
             <Route path='/' exact element={<Home />} />   
@@ -32,5 +32,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;

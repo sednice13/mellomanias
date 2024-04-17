@@ -122,7 +122,7 @@ const Register = () => {
          <div className={mystyles.fulldivcontent}>
 
 
-
+         <img src="https://i.imgur.com/wpSjCRM.png" alt="Beskrivande text" />
 
             <form className={mystyles.signinform} onSubmit={handleSubmit} >
 

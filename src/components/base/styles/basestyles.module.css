@@ -1,17 +1,18 @@
 .headerFooter {
     background-color: #393a3b;
-    height: 50px;
+    height: 40px !important;
     display: flex;
     align-items: center;
     justify-content: center;
     position: fixed;
     left: 0;
     right: 0;
-    z-index: 1000;
+   
   }
   
   .header {
     top: 0;
+    height: 50px !important;
   }
   
   .footer {
