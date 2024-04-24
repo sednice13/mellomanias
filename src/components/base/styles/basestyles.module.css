@@ -14,6 +14,14 @@
     top: 0;
     height: 50px !important;
   }
+  .imageheader{
+    width: 100px;
+    height: 100px;
+  }
+  .headerstyles {
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+   font-size: 20px;
+  }
   
   .footer {
     bottom: 0;

@@ -8,6 +8,7 @@ import Terms from './components/policy/Terms';
 import Private from './components/policy/Private';
 import Home from './components/sites/Home';
 import Register from './components/account/Register';
+import Login from './components/account/Login';
 
 class App extends Component {
   render() {
@@ -23,6 +24,7 @@ class App extends Component {
             <Route path='/' exact element={<Home />} />   
             <Route path='/terms' exact element={<Terms />} />
             <Route path='/private' exact element={<Private />} />
+            <Route path='/login' exact element={<Login />} />
             </Routes>
         </Router>
           </Container>
