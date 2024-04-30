@@ -14,7 +14,7 @@ export const AuthProvider = props => {
         }
 
         try {
-            const loginReq = await axios.post('http://localhost:8089/user/login', JSON.stringify(reqbody), {
+            const loginReq = await axios.post('http://localhost:8080/user/login', JSON.stringify(reqbody), {
                 headers: {
                     'Content-Type': 'application/json',
                 }

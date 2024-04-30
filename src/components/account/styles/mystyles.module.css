@@ -92,10 +92,10 @@ img {
   width: 250px;
 }
 .statusdiv {
-  position: absolute;
+  
   height: 30px;
   width: 230px;
-  right: 3px;
+ bottom: 140px;
   background-color: rgb(211, 68, 68);
 }
 .minecraftprofile {

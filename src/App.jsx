@@ -9,11 +9,13 @@ import Private from './components/policy/Private';
 import Home from './components/sites/Home';
 import Register from './components/account/Register';
 import Login from './components/account/Login';
+import { AuthProvider } from './components/account/Authcontext';
+import Chooseforum from './components/sites/Forum/Chooseforum';
 
 class App extends Component {
   render() {
     return (
-        
+        <AuthProvider>  
       <div className="app-container">
         <Header />
         <div className="content-wrapper">
@@ -25,12 +27,14 @@ class App extends Component {
             <Route path='/terms' exact element={<Terms />} />
             <Route path='/private' exact element={<Private />} />
             <Route path='/login' exact element={<Login />} />
+            <Route path='/forum' exact element={<Chooseforum />}/> 
             </Routes>
         </Router>
           </Container>
         </div>
         <Footer />
       </div>
+      </AuthProvider>
     );
   }
 }

@@ -8,8 +8,8 @@ const Header = () => {
             <a href="/create-account" className={basestyles.headerstyles}>Register</a>
             <a href="/login" className={basestyles.headerstyles}>Login</a>
             <img src="https://i.imgur.com/wpSjCRM.png" alt="Beskrivande text" className={basestyles.imageheader} />
-            <a href="" className={basestyles.headerstyles} >Forum</a>
-            <a href="" className={basestyles.headerstyles}>Contact us</a>
+            <a href="/forum" className={basestyles.headerstyles} >Forum</a>
+            <a href="" className={basestyles.headerstyles}>Contact</a>
         </Container>
     );
 };

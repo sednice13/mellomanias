@@ -1,0 +1,38 @@
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .slidePanel {
+    width: calc(50vw - 2.5px); /* Justerar bredden för att kompensera för vit kant */
+    height: 100vh;
+    background-color: rgb(35, 35, 35);
+    position: absolute;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center; /* Centrerar innehållet horisontellt */
+    align-items: center; /* Centrerar innehållet vertikalt */
+  }
+  
+  .leftPanel {
+    left: 0;
+    border-right: 5px solid white;
+    box-shadow: 2px 0 40px rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+  }
+  
+  .rightPanel {
+    right: 0;
+    border-left: 5px solid white;
+    box-shadow: -2px 0 40px rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+  }
+  
+  h2 {
+    color: white;
+    margin: 0; /* Tar bort eventuellt standardmarginal för att undvika layoutproblem */
+  }

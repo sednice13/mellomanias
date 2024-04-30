@@ -36,61 +36,54 @@ const Register = () => {
 
 
       try {
-
          const data = {
-
-            user: formValue.username,
-            password: formValue.password,
-            mail: formValue.mail
-         }
-
+             user: formValue.username,
+             password: formValue.password,
+             mail: formValue.mail
+         };
+     
          const config = {
-            headers: {
-               'Content-Type': 'application/json',
-            },
-
-         }
-        
-         const registerReq = await axios.post('http://localhost:8089/user/register', JSON.stringify(data), config)
-
+             headers: {
+                 'Content-Type': 'application/json',
+             },
+         };
+     
+         const registerReq = await axios.post('http://localhost:8080/user/register', JSON.stringify(data), config);
+     
          if (registerReq.status === 201) {
-            setStatus({
-
-               statustext: registerReq.data.message,
-               code: registerReq.status
-            })
-
-            setShowStatusAnimation(true)
-
-            setTimeout(() => {
-               setShowStatusAnimation(false)
-               navigate('/login')
-            }, 5000)
-
+             setStatus({
+                 statustext: registerReq.data.message,
+                 code: registerReq.status
+             });
+     
+             setShowStatusAnimation(true);
+     
+             setTimeout(() => {
+                 setShowStatusAnimation(false);
+                 navigate('/login');
+             }, 5000);
          }
-
-       
-
-      } catch (error) {
-
-         
-
-         setStatus({
-
-            statustext: error.response.data.message,
-            code: error.response.data.status
-         })
-
-         setShowStatusAnimation(true)
-
+     } catch (error) {
+         if (error.response) {
+             setStatus({
+                 statustext: error.response.data.message,
+                 code: error.response.status
+             });
+         } else {
+             // Handle cases where the error does not come from a HTTP response
+             setStatus({
+                 statustext: "An unexpected error occurred. Please try again later.",
+                 code: "Error"
+             });
+         }
+     
+         setShowStatusAnimation(true);
+     
          setTimeout(() => {
-            setShowStatusAnimation(false)
-         }, 5000)
-
-
-
-      }
-
+             setShowStatusAnimation(false);
+         }, 5000);
+     }
+     
 
    }
 
@@ -109,7 +102,7 @@ const Register = () => {
       <div className={mystyles.accountsection}>
 
          {showStatusAnimation && (
-            <Slide right>
+            <Slide direction="right">
                <div className={mystyles.statusdiv} style={{
                   backgroundColor: status.code === 201 ? 'green' : 'red',
                }}>
