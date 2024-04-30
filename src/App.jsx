@@ -11,6 +11,7 @@ import Register from './components/account/Register';
 import Login from './components/account/Login';
 import { AuthProvider } from './components/account/Authcontext';
 import Chooseforum from './components/sites/Forum/Chooseforum';
+import Topics from './components/sites/Forum/Topics';
 
 class App extends Component {
   render() {
@@ -28,6 +29,7 @@ class App extends Component {
             <Route path='/private' exact element={<Private />} />
             <Route path='/login' exact element={<Login />} />
             <Route path='/forum' exact element={<Chooseforum />}/> 
+            <Route path='/topics/:topic'  exact element={<Topics />} />
             </Routes>
         </Router>
           </Container>
