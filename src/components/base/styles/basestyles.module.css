@@ -1,52 +1,80 @@
 .headerFooter {
-    background-color: #393a3b;
-    height: 40px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    left: 0;
-    right: 0;
-   
-  }
-  
-  .header {
-    top: 0;
-    height: 50px !important;
-    position: fixed !important;
-    left: 0;
+  background-color: #393a3b;
+  height: 50px !important; /* adjusted to be consistent */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* changed from center to space-between to better manage space */
+  text-align: center;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* ensure this is sufficiently high to keep on top */
+}
+
+.header {
+  top: 0;
+  height: 50px !important; /* ensure this matches headerFooter for consistency */
+  position: fixed !important;
+  left: 0;
   right: 0;
   z-index: 1000;
-  }
-  .imageheader{
-    width: 100px;
-    height: 100px;
-  }
+}
+
+.logoContainer {
+  flex:  0 auto; /* adjusted to ensure logo container has a fixed starting size but can grow if necessary */
+  display: flex;
+  justify-content: center; /* centers the logo horizontally */
+}
+
+.headerLeft, .headerRight {
+  flex: 1 1 0px; /* grow and shrink but start with 0% of the extra space */
+}
+.headerLeft {
+
+  text-align: right;
+}
+.headerRight {
+  text-align: left;
+}
+
+.imageheader{
+  width: 100px;
+  height: 100px;
+  margin: auto; /* centers the logo vertically and horizontally within its flex container */
+}
+
+.headerstyles {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 20px; /* unchanged */
+}
+
+.footer {
+  bottom: 0;
+  position: fixed; /* assuming you want the footer fixed like the header */
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+h2 {
+  color: white !important;
+}
+
+a {
+  padding: 3px;
+  color: white !important;
+}
+
+a:link, a:visited, a:hover, a:active { 
+  text-decoration: none; /* grouped for simplicity */
+}
+
+@media (max-width: 600px) {
   .headerstyles {
-   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-   font-size: 20px;
+      font-size: 16px; /* smaller text on smaller screens */
   }
-  
-  .footer {
-    bottom: 0;
+  .imageheader {
+      width: 80px;
+      height: 80px; /* smaller logo on smaller screens */
   }
-  h2 {
-    color: white !important; 
-    
-  }
-  a {
-    padding: 3px;
-    color: white !important;
-  }
-  a:link { 
-    text-decoration: none; 
-  } 
-  a:visited { 
-    text-decoration: none; 
-  } 
-  a:hover { 
-    text-decoration: none; 
-  } 
-  a:active { 
-    text-decoration: none; 
-  }
+}

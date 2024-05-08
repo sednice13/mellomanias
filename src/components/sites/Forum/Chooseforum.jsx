@@ -8,6 +8,7 @@ const ChooseForum = () => {
     let navigate = useNavigate()
 
     const handleClick = (topic) => {
+      
         navigate(`/topics/${topic}`)
     }
   return (
