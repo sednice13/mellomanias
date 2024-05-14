@@ -1,106 +1,110 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import styles from './styles/ChooseForum.module.css'
-import { AuthContext } from '../../account/Authcontext'
-import { Button } from 'react-bootstrap'
+import React, { useState, useEffect, useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import styles from './styles/ChooseForum.module.css';
+import { AuthContext } from '../../account/Authcontext';
+import { Button } from 'react-bootstrap';
 
 const Forum = () => {
-  const { topic, theme } = useParams()
-  const { auth } = useContext(AuthContext)
-  const navigate = useNavigate()
+  const { topic, theme } = useParams();
+  const { auth } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const [posts, setPosts] = useState([])
-  const [page, setPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(1)
-  const [newPost, setNewPost] = useState({ title: '', description: '' })
-  const [isEditing, setIsEditing] = useState(false)
-  const [editingPostId, setEditingPostId] = useState(null)
+  const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [newPost, setNewPost] = useState({ title: '', description: '' });
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingPostId, setEditingPostId] = useState(null);
 
   useEffect(() => {
-    fetchPosts()
-  }, [page, topic, theme])
+    fetchPosts();
+  }, [page, topic, theme]);
 
   const fetchPosts = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/forum/topics/${topic}/${theme}`, {
         params: { page },
-      })
-      setPosts(response.data.posts)
-      setTotalPages(response.data.totalPages)
+      });
+      setPosts(response.data.posts);
+      setTotalPages(response.data.totalPages);
     } catch (error) {
-      console.error('Error fetching posts:', error)
+      console.error('Error fetching posts:', error);
     }
-  }
+  };
 
   const handlePageChange = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
-      setPage(newPage)
+      setPage(newPage);
     }
-  }
+  };
+
+  const handleNavigate = (pageId) => {
+    navigate(`/topics/${topic.toLowerCase()}/${theme}/${pageId}`);
+  };
 
   const handlePostSubmit = async (event) => {
-    event.preventDefault()
-    const token = localStorage.getItem('token')
+    event.preventDefault();
+    const token = localStorage.getItem('token');
     if (token) {
-      const headers = { 'Authorization': `Bearer ${token}` }
+      const headers = { Authorization: `Bearer ${token}` };
       const postData = {
-        catagory: topic,
+        category: topic,
         maintheme: theme,
         title: newPost.title,
-        text: newPost.description
-      }
+        text: newPost.description,
+      };
 
       try {
         if (isEditing) {
-          await axios.put(`http://localhost:8080/forum/posts/${editingPostId}`, postData, { headers })
-          setIsEditing(false)
-          setEditingPostId(null)
+          await axios.put(`http://localhost:8080/forum/posts/${editingPostId}`, postData, { headers });
+          setIsEditing(false);
+          setEditingPostId(null);
         } else {
-          await axios.post(`http://localhost:8080/forum/newtopic`, postData, { headers })
+          await axios.post(`http://localhost:8080/forum/newtopic`, postData, { headers });
         }
-        setNewPost({ title: '', description: '' })
-        fetchPosts()
+        setNewPost({ title: '', description: '' });
+        fetchPosts();
       } catch (error) {
-        console.error('Error submitting post:', error)
+        console.error('Error submitting post:', error);
       }
     }
-  }
+  };
 
   const handleRemovePost = async (postId) => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
     if (token) {
       try {
         await axios.delete(`http://localhost:8080/forum/posts/${postId}`, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        })
-        fetchPosts()
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        fetchPosts();
       } catch (error) {
-        console.error('Error removing post:', error)
+        console.error('Error removing post:', error);
       }
     }
-  }
+  };
+
   const addPostButtons = (postUserName, postId, post) => {
-    
     if (auth.user && (postUserName === auth.user || postUserName === auth.user.sub)) {
       return (
         <>
-          <button onClick={() => handleUpdatePost(post)}>Update</button>
-          <button onClick={() => handleRemovePost(postId)}>Remove</button>
+          <button type="button" onClick={() => handleUpdatePost(post)}>Update</button>
+          <button type="button" onClick={() => handleRemovePost(postId)}>Remove</button>
         </>
-      )
+      );
     }
-    return null
-  }
+    return null;
+  };
 
   const handleUpdatePost = (post) => {
-    setNewPost({ title: post.title, description: post.text })
-    setIsEditing(true)
-    setEditingPostId(post._id)
-  }
+    setNewPost({ title: post.title, description: post.text });
+    setIsEditing(true);
+    setEditingPostId(post._id);
+  };
 
   return (
-    <div className={styles.fulldiv}> 
+    <div className={styles.fulldiv}>
       <div className={styles.forum}>
         <h1>Forum: {topic} - {theme}</h1>
         <form onSubmit={handlePostSubmit} className={styles.postForm}>
@@ -117,14 +121,17 @@ const Forum = () => {
             placeholder="Description"
             required
           ></textarea>
-          {isEditing ? <><Button variant='warning'>Update Post</Button></> : <Button variant='success'> New Post</Button>}
-         
+          {isEditing ? (
+            <Button variant="warning" type="submit">Update Post</Button>
+          ) : (
+            <Button variant="success" type="submit">New Post</Button>
+          )}
         </form>
 
         <div className={styles.posts}>
           {posts.map((post) => (
             <div key={post._id} className={styles.post}>
-              <h2>{post.title}</h2>
+              <h2 onClick={() => handleNavigate(post._id)}>{post.title}</h2>
               <p>{post.text}</p>
               {addPostButtons(post.username, post._id, post)}
             </div>
@@ -142,13 +149,10 @@ const Forum = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Forum
-
-
-
+export default Forum;
 
 
 
