@@ -5,6 +5,7 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    
   }
   
   .slidePanel {
@@ -35,6 +36,7 @@
   .fulldiv{
     width: 100%;
     height: 100%;
+   overflow-y: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -89,7 +91,9 @@
 
   .forum {
     width: 80%;
-    margin: auto;
+     height: 96%;
+    margin: 10px;
+   
   }
   
   .postForm {
@@ -111,9 +115,21 @@
   }
   
   .post {
+    border: 4px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  .comments {
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 5px;
+  }
+  .actionbuttons {
+
+    width: 100%;
+    display: flex;
+     justify-content: right;
   }
   
   .pagination {

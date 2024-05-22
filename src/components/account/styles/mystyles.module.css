@@ -1,129 +1,118 @@
-.signinform {
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(33, 33, 33);
-    border-radius: 20px;
-    width: 300px;
-   
-  }
-
-  
-
-  .error {
-    color: red;
-    text-align: center;
-    
-  }
-  .noerror {
-
-    display: none;
-  }
-
-  .divsize {
-
-
-    height: 500px;
-    width: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 20px;
-    background-color: rgb(24, 23, 23);
-  }
-
-  .labels {
-
-    color: white;
-  
-  }
-
-  .inputs {
-
-    background-color: rgb(30, 30, 30);
-    color: white;
-    
-    border-radius: 20px;
-  }
-
-  .thetitle {
-
-    position: absolute;
-    top: 30%;
-    color: white
-  }
-  .coonectbutton {
-
-    color: white;
-    background-color: black;
-    width: 80px;
-    height: 30px;
-    margin-top: 10px;
-    border-radius: 10px;
-  }
-
-  .fulldivcontent {
-     
-    height: 500px;
-    width: 600px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(38, 37, 37);
-    padding: 10px;
-    
-}
 .accountsection {
-
-  height: 100%;
+  height: calc(100vh - 100px); /* Justerar höjden för att ta hänsyn till header och footer */
   width: 100% !important;
   display: flex;
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
   background-color: rgb(50, 52, 52);
 }
-a {
-  text-decoration:none;
+
+.fulldivcontent {
+  max-height: 500px;
+  width: 600px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(38, 37, 37);
+  padding: 10px;
 }
+
+.signinform {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(33, 33, 33);
+  border-radius: 20px;
+  width: 300px;
+}
+
+/* Övriga klasser är oförändrade */
+.error {
+  color: red;
+  text-align: center;
+}
+
+.noerror {
+  display: none;
+}
+
+.divsize {
+  height: 500px;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background-color: rgb(24, 23, 23);
+}
+
+.labels {
+  color: white;
+}
+
+.inputs {
+  background-color: rgb(30, 30, 30);
+  color: white;
+  border-radius: 20px;
+}
+
+.thetitle {
+  position: absolute;
+  top: 30%;
+  color: white;
+}
+
+.coonectbutton {
+  color: white;
+  background-color: black;
+  width: 80px;
+  height: 30px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
 img {
   width: 250px;
 }
+
 .statusdiv {
-  
   height: 30px;
   width: 230px;
- bottom: 140px;
+  bottom: 140px;
   background-color: rgb(211, 68, 68);
 }
+
 .minecraftprofile {
-color: rgb(111, 75, 75);
-border-radius: 25px;
-height: 50%;
-width: 50%;
-border: 3px;
-  border-style: solid;
-  border-color: rgb(255, 255, 255);
+  color: rgb(111, 75, 75);
+  border-radius: 25px;
+  height: 50%;
+  width: 50%;
+  border: 3px solid rgb(255, 255, 255);
 }
+
 .legends {
   display: contents;
 }
-.divtext {
 
+.divtext {
   text-align: center;
   height: 50%;
   width: 100%;
-  color: white
+  color: white;
 }
+
 .divskin {
-
-
   height: 50%;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  
 }

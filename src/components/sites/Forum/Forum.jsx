@@ -4,12 +4,13 @@ import axios from 'axios';
 import styles from './styles/ChooseForum.module.css';
 import { AuthContext } from '../../account/Authcontext';
 import { Button } from 'react-bootstrap';
+import { useStatus } from '../../status/StatusContext';
 
 const Forum = () => {
   const { topic, theme } = useParams();
   const { auth } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  const { updateStatus } = useStatus()
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -49,7 +50,7 @@ const Forum = () => {
     if (token) {
       const headers = { Authorization: `Bearer ${token}` };
       const postData = {
-        category: topic,
+        catagory: topic,
         maintheme: theme,
         title: newPost.title,
         text: newPost.description,
@@ -57,16 +58,18 @@ const Forum = () => {
 
       try {
         if (isEditing) {
-          await axios.put(`http://localhost:8080/forum/posts/${editingPostId}`, postData, { headers });
+          const response = await axios.put(`http://localhost:8080/forum/posts/${editingPostId}`, postData, { headers });
+          updateStatus(response.status, response.data.message)
           setIsEditing(false);
           setEditingPostId(null);
         } else {
-          await axios.post(`http://localhost:8080/forum/newtopic`, postData, { headers });
+        const response =  await axios.post(`http://localhost:8080/forum/newtopic`, postData, { headers });
+        updateStatus(response.status, response.data.message)
         }
         setNewPost({ title: '', description: '' });
         fetchPosts();
       } catch (error) {
-        console.error('Error submitting post:', error);
+        updateStatus(500, 'Strange error have happend')
       }
     }
   };
@@ -89,8 +92,8 @@ const Forum = () => {
     if (auth.user && (postUserName === auth.user || postUserName === auth.user.sub)) {
       return (
         <>
-          <button type="button" onClick={() => handleUpdatePost(post)}>Update</button>
-          <button type="button" onClick={() => handleRemovePost(postId)}>Remove</button>
+          <Button type="button" variant='warning' onClick={() => handleUpdatePost(post)}>Update</Button>
+          <Button type="button" onClick={() => handleRemovePost(postId)} variant='danger'>Remove</Button>
         </>
       );
     }
@@ -131,9 +134,12 @@ const Forum = () => {
         <div className={styles.posts}>
           {posts.map((post) => (
             <div key={post._id} className={styles.post}>
+              <p>{post.username}</p>
               <h2 onClick={() => handleNavigate(post._id)}>{post.title}</h2>
               <p>{post.text}</p>
+              <div className={styles.actionbuttons}>
               {addPostButtons(post.username, post._id, post)}
+              </div>
             </div>
           ))}
         </div>

@@ -57,7 +57,9 @@ const Comments = () => {
       const headers = { 'Authorization': `Bearer ${token}` }
       const commentData = {
         topicid: postid,
-        text: newComment.description
+        text: newComment.description,
+        topic: topic,
+        theme: theme
       }
 
       try {
@@ -94,8 +96,8 @@ const Comments = () => {
     if (auth.user && (commentUserName === auth.user || commentUserName === auth.user.sub)) {
       return (
         <>
-          <button onClick={() => handleUpdateComment(comment)}>Update</button>
-          <button onClick={() => handleRemoveComment(commentId)}>Remove</button>
+          <Button onClick={() => handleUpdateComment(comment) } variant='warning'>Update</Button>
+          <Button onClick={() => handleRemoveComment(commentId)} variant='danger'>Remove</Button>
         </>
       )
     }
@@ -106,6 +108,17 @@ const Comments = () => {
     setNewComment({ description: comment.text })
     setIsEditing(true)
     setEditingCommentId(comment._id)
+  }
+
+  const getCommentStyle = (commentUserName) => {
+    if (auth.user) {
+      if (auth.user.role === 'admin') {
+        return { color: 'red' }
+      } else if (commentUserName === auth.user || commentUserName === auth.user.sub) {
+        return { color: 'blue' }
+      }
+    }
+    return { color: 'green' }
   }
 
   return (
@@ -131,8 +144,11 @@ const Comments = () => {
         <div className={styles.comments}>
           {comments.map((comment) => (
             <div key={comment._id} className={styles.comment}>
+              <p style={getCommentStyle(comment.username)}>{comment.username}</p>
               <p>{comment.text}</p>
+              <div className={styles.actionbuttons}> 
               {addCommentButtons(comment.username, comment._id, comment)}
+              </div>
             </div>
           ))}
         </div>

@@ -1,19 +1,19 @@
 .app-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh; /* Använd vh för att säkerställa att appen täcker hela höjden av viewporten */
   width: 100%;
 }
-
 
 .content-wrapper {
   flex: 1;
-  height: 100%;
-  width: 100%;
-  
+  overflow-y: auto;
+  padding-top: 50px; /* Höjden av header /////   */ 
+  padding-bottom: 50px; /* Höjden av footer */
+ 
 }
+
 html, body, #root {
   height: 100%;
-
   width: 100%;
 }

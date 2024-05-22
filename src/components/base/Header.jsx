@@ -2,13 +2,20 @@ import React, { useContext } from 'react';
 import { Container } from 'react-bootstrap';
 import basestyles from './styles/basestyles.module.css';
 import { AuthContext } from '../account/Authcontext';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const { auth, LogOut } = useContext(AuthContext);
+    const navigate = useNavigate();
     
     const handleLogOut = async () => {
         LogOut();
     };
+    
+
+    const toHome = () => {
+        navigate('/')
+    }
 
     return (
         <Container fluid className={`${basestyles.headerFooter} ${basestyles.header}`}>
@@ -26,7 +33,7 @@ const Header = () => {
                 )}
             </div>
             <div className={basestyles.logoContainer}>
-                <img src="https://i.imgur.com/wpSjCRM.png" alt="Descriptive text" className={basestyles.imageheader} />
+                <img src="https://i.imgur.com/wpSjCRM.png" alt="Descriptive text" className={basestyles.imageheader} onClick={() => toHome()}  />
             </div>
             <div className={basestyles.headerRight}>
                 <a href="/forum" className={basestyles.headerstyles}>Forum</a>
