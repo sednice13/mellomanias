@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 const topicsInfo = [
   { title: "Musik", description: "Diskussioner om melodier, genrer och musikhistoria.", theme: 'music'},
-  { title: "Artister", description: "Allt om dina favoritartister och band.", theme: 'artist' },
+  { title: "Artister", description: "Allt om dina favoritartister och band.", theme: 'artists' },
   { title: "Allmänt", description: "Övriga ämnen och allmänna diskussioner.", theme: 'general' }
 ];
 

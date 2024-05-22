@@ -4,6 +4,7 @@ import axios from 'axios'
 import styles from './styles/ChooseForum.module.css'
 import { AuthContext } from '../../account/Authcontext'
 import { Button } from 'react-bootstrap'
+import { useStatus } from '../../status/StatusContext';
 
 const Comments = () => {
   const { topic, theme, postid } = useParams()
@@ -17,6 +18,7 @@ const Comments = () => {
   const [newComment, setNewComment] = useState({ description: '' })
   const [isEditing, setIsEditing] = useState(false)
   const [editingCommentId, setEditingCommentId] = useState(null)
+  const { updateStatus } = useStatus()
 
   useEffect(() => {
     fetchPost()
@@ -58,22 +60,25 @@ const Comments = () => {
       const commentData = {
         topicid: postid,
         text: newComment.description,
-        topic: topic,
-        theme: theme
+        catagory: topic,
+        maintheme: theme
       }
 
       try {
         if (isEditing) {
-          await axios.put(`http://localhost:8080/forum/comments/${editingCommentId}`, commentData, { headers })
+         const response = await axios.put(`http://localhost:8080/forum/comments/${editingCommentId}`, commentData, { headers })
           setIsEditing(false)
           setEditingCommentId(null)
+          updateStatus(response.status, response.data.message)
         } else {
-          await axios.post(`http://localhost:8080/forum/comments`, commentData, { headers })
+        const response =  await axios.post(`http://localhost:8080/forum/newtopic/comments`, commentData, { headers })
+
+        updateStatus(response.status, response.data.message)
         }
         setNewComment({ description: '' })
         fetchComments()
       } catch (error) {
-        console.error('Error submitting comment:', error)
+        updateStatus(error.status, error.data.message)
       }
     }
   }
@@ -82,9 +87,10 @@ const Comments = () => {
     const token = localStorage.getItem('token')
     if (token) {
       try {
-        await axios.delete(`http://localhost:8080/forum/comments/${commentId}`, {
+       const response = await axios.delete(`http://localhost:8080/forum/comments/${commentId}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         })
+        updateStatus(response.status, response.data.message)
         fetchComments()
       } catch (error) {
         console.error('Error removing comment:', error)

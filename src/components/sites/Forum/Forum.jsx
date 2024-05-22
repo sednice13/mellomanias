@@ -69,7 +69,7 @@ const Forum = () => {
         setNewPost({ title: '', description: '' });
         fetchPosts();
       } catch (error) {
-        updateStatus(500, 'Strange error have happend')
+        updateStatus(error.status, error.data.message)
       }
     }
   };
@@ -78,9 +78,12 @@ const Forum = () => {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        await axios.delete(`http://localhost:8080/forum/posts/${postId}`, {
+      const response =  await axios.delete(`http://localhost:8080/forum/posts/${postId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
+
+        updateStatus(response.status, response.data.message)
+
         fetchPosts();
       } catch (error) {
         console.error('Error removing post:', error);
