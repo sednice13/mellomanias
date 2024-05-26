@@ -27,7 +27,7 @@ const Comments = () => {
 
   const fetchPost = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/forum/newtopic/${postid}`)
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/forum/newtopic/${postid}`)
       setPost(response.data)
     } catch (error) {
       console.error('Error fetching post:', error)
@@ -36,7 +36,7 @@ const Comments = () => {
 
   const fetchComments = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/forum/newtopic/${postid}/comments`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/forum/newtopic/${postid}/comments`, {
         params: { page },
       })
       setComments(response.data.comments)
