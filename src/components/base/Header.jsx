@@ -37,7 +37,7 @@ const Header = () => {
             </div>
             <div className={basestyles.headerRight}>
                 <a href="/forum" className={basestyles.headerstyles}>Forum</a>
-                <a href="" className={basestyles.headerstyles}>Contact</a>
+                <a href="/contact" className={basestyles.headerstyles}>Contact</a>
             </div>
         </Container>
     );

@@ -18,6 +18,10 @@
   background-color: rgb(38, 37, 37);
   padding: 10px;
 }
+.postiontext {
+  position: fixed;
+  top: 100px;
+}
 
 .signinform {
   height: 300px;

@@ -22,9 +22,11 @@ const Forum = () => {
     fetchPosts();
   }, [page, topic, theme]);
 
+  console.log(process.env.REACT_APP_TEST)
+
   const fetchPosts = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/forum/topics/${topic}/${theme}`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/forum/topics/${topic}/${theme}`, {
         params: { page },
       });
       setPosts(response.data.posts);
@@ -54,31 +56,43 @@ const Forum = () => {
         maintheme: theme,
         title: newPost.title,
         text: newPost.description,
-      };
+      }
 
       try {
         if (isEditing) {
-          const response = await axios.put(`http://localhost:8080/forum/posts/${editingPostId}`, postData, { headers });
+          const response = await axios.put(`${process.env.REACT_APP_API_URL}/forum/posts/${editingPostId}`, postData, { headers });
           updateStatus(response.status, response.data.message)
           setIsEditing(false);
           setEditingPostId(null);
         } else {
-        const response =  await axios.post(`http://localhost:8080/forum/newtopic`, postData, { headers });
+        const response =  await axios.post(`${process.env.REACT_APP_API_URL}/forum/newtopic`, postData, { headers });
         updateStatus(response.status, response.data.message)
         }
         setNewPost({ title: '', description: '' });
         fetchPosts();
       } catch (error) {
+        console.log(error)
         updateStatus(error.status, error.data.message)
       }
+    } else {
+      updateStatus(401, 'Not logged in')
     }
   };
-
+  const getCommentStyle = (commentUserName) => {
+    if (auth.user) {
+      if (auth.user.role === 'admin') {
+        return { color: 'red' }
+      } else if (commentUserName === auth.user || commentUserName === auth.user.sub) {
+        return { color: 'yellow',  fontweight: 'bold'}
+      }
+    }
+    return { color: 'green' }
+  }
   const handleRemovePost = async (postId) => {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-      const response =  await axios.delete(`http://localhost:8080/forum/posts/${postId}`, {
+      const response =  await axios.delete(`${process.env.REACT_APP_API_URL}/forum/posts/${postId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -86,8 +100,10 @@ const Forum = () => {
 
         fetchPosts();
       } catch (error) {
-        console.error('Error removing post:', error);
+        updateStatus(error.response.status, error.response.data.message)
       }
+    }else {
+      updateStatus(401, 'not logged in')
     }
   };
 
@@ -137,7 +153,7 @@ const Forum = () => {
         <div className={styles.posts}>
           {posts.map((post) => (
             <div key={post._id} className={styles.post}>
-              <p>{post.username}</p>
+              <p style={getCommentStyle(post.username)}>{post.username}</p>
               <h2 onClick={() => handleNavigate(post._id)}>{post.title}</h2>
               <p>{post.text}</p>
               <div className={styles.actionbuttons}>

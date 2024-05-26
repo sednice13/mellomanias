@@ -66,19 +66,19 @@ const Comments = () => {
 
       try {
         if (isEditing) {
-         const response = await axios.put(`http://localhost:8080/forum/comments/${editingCommentId}`, commentData, { headers })
+         const response = await axios.put(`${process.env.REACT_APP_API_URL}/forum/comments/${editingCommentId}`, commentData, { headers })
           setIsEditing(false)
           setEditingCommentId(null)
           updateStatus(response.status, response.data.message)
         } else {
-        const response =  await axios.post(`http://localhost:8080/forum/newtopic/comments`, commentData, { headers })
+        const response =  await axios.post(`${process.env.REACT_APP_API_URL}/forum/newtopic/comments`, commentData, { headers })
 
         updateStatus(response.status, response.data.message)
         }
         setNewComment({ description: '' })
         fetchComments()
       } catch (error) {
-        updateStatus(error.status, error.data.message)
+        updateStatus(error.response.status, error.response.data.message)
       }
     }
   }
@@ -87,7 +87,7 @@ const Comments = () => {
     const token = localStorage.getItem('token')
     if (token) {
       try {
-       const response = await axios.delete(`http://localhost:8080/forum/comments/${commentId}`, {
+       const response = await axios.delete(`${process.env.REACT_APP_API_URL}/forum/comments/${commentId}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         })
         updateStatus(response.status, response.data.message)
@@ -121,7 +121,7 @@ const Comments = () => {
       if (auth.user.role === 'admin') {
         return { color: 'red' }
       } else if (commentUserName === auth.user || commentUserName === auth.user.sub) {
-        return { color: 'blue' }
+        return { color: 'yellow' }
       }
     }
     return { color: 'green' }

@@ -22,7 +22,7 @@ const Login = () => {
       const response = await login(formValue.username, formValue.password);
       updateStatus(response.status, response.data.message);
 
-      if(response.status === 200) {
+      if(response.status === 201) {
         setTimeout(() => {
           navigate('/');
         }, 5000);
@@ -41,6 +41,11 @@ const Login = () => {
 
   return (
     <div className={mystyles.accountsection}>
+      <div className={mystyles.postiontext}>
+      <Slide direction="left">   
+      <h2 > LOGGA IN </h2>
+      </Slide>
+      </div>
       <div className={mystyles.fulldivcontent}>
         <img src="https://i.imgur.com/wpSjCRM.png" alt="Beskrivande text" />
         <form className={mystyles.signinform} onSubmit={handleSubmit}>

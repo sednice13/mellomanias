@@ -15,6 +15,7 @@ import Forum from './components/sites/Forum/Forum';
 import Comments from './components/sites/Forum/Comments';
 import { StatusProvider } from './components/status/StatusContext';
 import StatusComponent from './components/status/StatusComponent';
+import Contact from './components/sites/Contact';
 
 class App extends Component {
   render() {
@@ -36,6 +37,7 @@ class App extends Component {
                   <Route path='/topics/:topic' exact element={<Topics />} />
                   <Route path='/topics/:topic/:theme' exact element={<Forum />} />
                   <Route path='/topics/:topic/:theme/:postid' exact element={<Comments />} />
+                  <Route path='/contact' exact element={<Contact />} />
                 </Routes>
               </div>
               <Footer />

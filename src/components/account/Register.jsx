@@ -6,13 +6,15 @@ import { Slide } from 'react-awesome-reveal';
 import { useState} from "react";
 import { useNavigate } from 'react-router-dom'
 
+import { useStatus } from "../status/StatusContext";
+
 
 
 const Register = () => {
 
    const navigate = useNavigate()
 
-
+   const { updateStatus } = useStatus()
    const [formValue, setformValue] = useState({
       username: '',
       password: '',
@@ -48,27 +50,29 @@ const Register = () => {
              },
          };
      
-         const registerReq = await axios.post('http://localhost:8080/user/register', JSON.stringify(data), config);
+         const registerReq = await axios.post(`${process.env.REACT_APP_API_URL}/user/register`, JSON.stringify(data), config);
      
          if (registerReq.status === 201) {
-             setStatus({
-                 statustext: registerReq.data.message,
-                 code: registerReq.status
-             });
+             updateStatus(
+                
+                 registerReq.status,
+                  registerReq.data.message
+                );
      
-             setShowStatusAnimation(true);
+             
      
              setTimeout(() => {
-                 setShowStatusAnimation(false);
+                 
                  navigate('/login');
              }, 5000);
          }
      } catch (error) {
          if (error.response) {
-             setStatus({
-                 statustext: error.response.data.message,
-                 code: error.response.status
-             });
+             setStatus(
+
+                  error.response.status,
+                  error.response.data.message
+             );
          } else {
              // Handle cases where the error does not come from a HTTP response
              setStatus({
@@ -100,7 +104,11 @@ const Register = () => {
 
 
       <div className={mystyles.accountsection}>
-
+         <div className={mystyles.postiontext}>
+      <Slide direction="left">   
+      <h2 > REGISTRERA DIG </h2>
+      </Slide>
+      </div>
          {showStatusAnimation && (
             <Slide direction="right">
                <div className={mystyles.statusdiv} style={{
